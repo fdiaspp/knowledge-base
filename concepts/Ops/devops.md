@@ -27,6 +27,7 @@ I didn't write this word before yet. But, it's important to Continuos Improvemen
 ## Tools and Techniques
 How can I create this environment on my projects?
 
+- Git Systems
 - CI/CD
 - Orquestration
 - Containers/Docker/Kubernetes
