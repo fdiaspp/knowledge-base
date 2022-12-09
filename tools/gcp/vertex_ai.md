@@ -2,6 +2,10 @@
 It is the unified Machine Learning platform by Google Cloud
 See more in https://cloud.google.com/vertex-ai
 
+Related topics are:
+- [MLOps](../../concepts/Ops/mlops.md)
+- [Kubeflow](../kubeflow.md)
+
 ## Experimentation and Training
 
 
