@@ -16,8 +16,8 @@ Tabular data can be used as dataset (as imagens, footages, sounds and text) and 
 
 Terraform provides operator to create a dataset from code[^7].
 
-## Loggin and Security
-Every action taken on Vertex AI[^5] are audited. The best practice here is to create the datasets that is needed to work as a Vertex AI [Managed Dataset](#managed-datasets) to have the logs on.
+## Logging and Security
+Every action taken on Vertex AI[^5] are audited. The best practice here is to create the datasets that is needed to work as a [Vertex AI Managed Dataset](#managed-datasets) to have the logs on.
 
 ## MLOps
 
