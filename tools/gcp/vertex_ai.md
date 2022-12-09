@@ -1,4 +1,6 @@
 # Vertex AI
+It is the unified Machine Learning platform by Google Cloud
+See more in https://cloud.google.com/vertex-ai
 
 ## Experimentation and Training
 
