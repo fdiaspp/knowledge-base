@@ -97,6 +97,33 @@ GROUP BY 1
 ORDER BY 1
 ```
 
+```sql
+-- avg, max and sum of slots by day over last week
+--
+--
+
+SELECT
+  SUM(total_slot_ms) / (1000 * 60 * 60 * 24) AS sum_slots,
+  MAX(total_slot_ms) / (1000 * 60 * 60 * 24)  AS max_slots,
+  AVG(total_slot_ms) / (1000 * 60 * 60 * 24) AS avg_slots,
+  project_id,
+  DATE(creation_time) AS data_de_criacao
+FROM
+  `region-southamerica-east1`.INFORMATION_SCHEMA.JOBS
+WHERE
+  -- Filter by the partition column first to limit the amount of data scanned.
+  -- Eight days allows for jobs created before the 7 day end_time filter.
+  creation_time BETWEEN TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 8 DAY)
+  AND CURRENT_TIMESTAMP()
+  AND job_type = 'QUERY'
+  AND statement_type != 'SCRIPT'
+  AND end_time BETWEEN TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 7 DAY)
+  AND CURRENT_TIMESTAMP()
+GROUP BY
+  project_id,
+  data_de_criacao
+```
+
 # References
 [^1]: https://cloud.google.com/bigquery/docs/information-schema-jobs?hl=pt-br#calculate_average_slot_utilization
 [^2]: https://medium.com/google-cloud/bigquery-slot-squeezes-896d9e0f2fc
