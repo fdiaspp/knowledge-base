@@ -42,7 +42,7 @@ We are using 75 slots in average per hour, and 4.534 per second until this execu
 needs more slots to finish its job and there is no more available, the job starts to pile up until some slot make 
 itself available to the engine.
 
-But, unfortunately, if we are comming from an on demand BigQuery usage it's a little hard to determine upfront
+But, unfortunately, if we are comming from an `on demand` or `non-editions offers`[^4]  BigQuery usage it's a little hard to determine upfront
 what would be the best setup for our slots. In this case, the best would be to see the average (as we already seen before)
 and peaks and valleys, in order to try to understand the profile.
 
@@ -101,3 +101,4 @@ ORDER BY 1
 [^1]: https://cloud.google.com/bigquery/docs/information-schema-jobs?hl=pt-br#calculate_average_slot_utilization
 [^2]: https://medium.com/google-cloud/bigquery-slot-squeezes-896d9e0f2fc
 [^3]: https://stackoverflow.com/questions/72187568/big-query-slot-estimator
+[^4]: https://cloud.google.com/bigquery/docs/editions-intro#editions_features
