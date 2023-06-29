@@ -40,7 +40,9 @@ and peaks and valleys, in order to try to understand the profile.
 
 After we have som info on executions, we can go for a more sofisticated metric. 
 One of this metrics tell us about how many time a query stage waited for slot availability to continue its execution.
-I'm talking about `avg_wait_ms`, as mentioned by [^2].
+I'm talking about `avg_wait_ms`, as mentioned by [^2]. This metric only work if we have some sort of upper limitation
+on the number of slots available to the org.
+
 
 
 # References
