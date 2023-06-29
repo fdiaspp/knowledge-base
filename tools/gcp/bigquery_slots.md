@@ -1,11 +1,19 @@
 # BigQuery Slots
 Resources and thoughts on estimating and determining best amount of slots needed for a certain Reservation.
 
+
+Content
+- [What is Reservation](#what-is-reservation)
+- [What is Commitment](#what-is-commitment)
+- [How to Estimate Slots](#how-to-estimate-slots)
+- [Snippets](#snippets)
+
+
 ### What is Reservation
 
 ### What is Commitment
 
-### How to estimate Slots
+### How to Estimate Slots
 It's possible to estimate[^1][^2] slot utilization metric using:
 
 ```math
@@ -44,6 +52,50 @@ I'm talking about `avg_wait_ms`, as mentioned by [^2]. This metric only work if 
 on the number of slots available to the org.
 
 
+### Snippets
+```sql
+-- extract slot utilisation
+-- Copyright 2022 Google LLC.
+-- SPDX-License-Identifier: Apache-2.0
+
+SELECT 
+      FORMAT_TIMESTAMP("%F %H", period_start , "Australia/Sydney") as start_hour,
+      sum(period_slot_ms)/3600000 as average_slots  -- deivide by 3,600,000  milliseconds
+FROM  `region-US.INFORMATION_SCHEMA.JOBS_TIMELINE`   
+WHERE 
+    job_start_time > timestamp_sub(current_timestamp(), INTERVAL 7 day)
+    AND job_type = "QUERY"
+group by 1
+```
+
+```sql
+-- extract Stage wait times for major stages
+-- Copyright 2022 Google LLC.
+-- SPDX-License-Identifier: Apache-2.0
+
+WITH stages as (
+ SELECT job_id, start_time as job_start,job_type, stage
+ FROM  `region-US.INFORMATION_SCHEMA.JOBS`
+ CROSS JOIN unnest(job_stages) as stage
+ WHERE job_type = "QUERY"
+ AND  total_slot_ms > 1e7  -- filter out minor stages
+ ),
+timings as (
+ SELECT job_id, job_start,
+    FORMAT_TIMESTAMP("%F %H", timestamp_millis(stage.start_ms) , "America/Sao_Paulo") as stage_start_hour,
+    stage.wait_Ms_Avg
+ FROM  stages
+ WHERE stage.slot_ms > 1e8
+)
+SELECT stage_start_hour,
+     FORMAT_TIMESTAMP("%H:%M:%S", timestamp_millis(cast(avg(wait_Ms_Avg) as Int)))    
+                  as wait_avg,
+FROM timings  
+WHERE
+    job_start > timestamp_sub(current_timestamp(), INTERVAL 7 day)
+GROUP BY 1
+ORDER BY 1
+```
 
 # References
 [^1]: https://cloud.google.com/bigquery/docs/information-schema-jobs?hl=pt-br#calculate_average_slot_utilization
