@@ -16,10 +16,11 @@ where:
 - ts: totalSlotsMs BigQuery metric
 - e: elapsedMs Bigquery Metric
 
-To know the average utilization over a period, use the base period in miliseconds.
+To know the average utilization over a period, use the base period in miliseconds[^3].
 
 #### Example:
-![from [^2]](../../resources/imgs/bigquery_job_statistics.png)
+<img src="../../resources/imgs/bigquery_job_statistics.png" width=500 />
+Image extracted from BigQuery from [^2].
 
 The average over 1 hour where there will be only the execution of the images job, we will have the following:
 ```math
@@ -35,3 +36,4 @@ We are using 75 slots in average per hour, and 4.534 per second untill this exec
 # References
 [^1]: https://cloud.google.com/bigquery/docs/information-schema-jobs?hl=pt-br#calculate_average_slot_utilization
 [^2]: https://medium.com/google-cloud/bigquery-slot-squeezes-896d9e0f2fc
+[^3]: https://stackoverflow.com/questions/72187568/big-query-slot-estimator
