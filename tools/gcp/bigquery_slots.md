@@ -20,6 +20,7 @@ To know the average utilization over a period, use the base period in milisecond
 
 #### Example:
 <img src="../../resources/imgs/bigquery_job_statistics.png" width=500 />
+
 Image extracted from BigQuery from [^2].
 
 The average over 1 hour where there will be only the execution of the images job, we will have the following:
@@ -28,7 +29,7 @@ us = \frac{272086967}{60 * 60 * 1000} = 75.57
 ```
 So, in average, we'll have 75 slots used on that hour. 
 But this couldnt be any that efficient to determine how many slots we wanna have available on our org. 
-I mean, we can see that there is a pick and that this job will, at least, be delayed.
+I mean, we can see that there is a peak and that this job will, at least, be delayed.
 We are using 75 slots in average per hour, and 4.534 per second untill this execution hit its end.
 
 
