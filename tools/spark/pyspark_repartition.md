@@ -1,5 +1,5 @@
 
-# Repartition e PartitionBy
+# Repartition and PartitionBy
 
 
 ### Rebalancing skewed datasets
