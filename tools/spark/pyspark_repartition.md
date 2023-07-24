@@ -19,11 +19,11 @@ number_of_rows_per_file = 1_000_000
 partition_count = df.groupBy(*partitions).count()
 
 df_balanced = ( 
-				df
-				.join(partition_count, on=partitions)
-				.withColumn('partition_seed', rand() * col('count') / number_of_rows_per_file)
-				.repartition(*partitions, 'partition_seed')
-			  )
+                df
+                .join(partition_count, on=partitions)
+                .withColumn('partition_seed', rand() * col('count') / number_of_rows_per_file)
+                .repartition(*partitions, 'partition_seed')
+              )
 ```
 
 Related and useful links:
